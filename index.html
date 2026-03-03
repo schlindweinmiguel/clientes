@@ -12,9 +12,10 @@
             box-sizing: border-box;
         }
 
+        /* Estilos Globais */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
+            background-color: #f0f5f1;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -22,23 +23,26 @@
             flex-direction: column;
             padding: 20px;
             background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            background-size: cover;
         }
 
         .container {
             background-color: #ffffff;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 700px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 900px;
             text-align: center;
             border: 2px solid #4CAF50;
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 32px;
             color: #4CAF50;
             margin-bottom: 20px;
             font-weight: bold;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
         }
 
         h2 {
@@ -49,9 +53,12 @@
 
         .form-container {
             margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        input, select {
+        input, select, button {
             padding: 12px;
             margin: 8px 0;
             width: 80%;
@@ -61,11 +68,9 @@
         }
 
         button {
-            padding: 12px 18px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 6px;
             cursor: pointer;
             width: 80%;
             font-size: 16px;
@@ -77,19 +82,22 @@
         }
 
         .filters {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .filters input, .filters select {
             width: 30%;
             display: inline-block;
             margin-right: 10px;
+            padding: 12px;
         }
 
         table {
             width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         th, td {
@@ -102,23 +110,24 @@
         th {
             background-color: #4CAF50;
             color: white;
+            font-weight: bold;
         }
 
         td {
             background-color: #f9f9f9;
         }
 
-        button.delete {
+        td button.delete {
             background-color: #f44336;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 8px 12px;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 14px;
         }
 
-        button.delete:hover {
+        td button.delete:hover {
             background-color: #e53935;
         }
 
@@ -126,6 +135,17 @@
             margin-top: 30px;
             color: #4CAF50;
             font-size: 14px;
+        }
+
+        /* Adicionando animações e efeitos */
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0); }
+        }
+
+        .filters input, .filters select {
+            animation: bounce 0.5s ease-out;
         }
 
     </style>
@@ -199,7 +219,12 @@
             { name: "Mariana", email: "mariana@coop.com" },
             { name: "Julia", email: "julia@coop.com" },
             { name: "Pedro", email: "pedro@coop.com" },
-            { name: "Renato", email: "renato@coop.com" }
+            { name: "Renato", email: "renato@coop.com" },
+            { name: "Lucas", email: "lucas@coop.com" },
+            { name: "Roberta", email: "roberta@coop.com" },
+            { name: "Juliana", email: "juliana@coop.com" },
+            { name: "Ricardo", email: "ricardo@coop.com" },
+            { name: "Simone", email: "simone@coop.com" }
         ];
 
         // Carregar os usuários iniciais na tabela
@@ -237,28 +262,4 @@
             cellEmail.textContent = email;
 
             const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Remover";
-            deleteButton.classList.add("delete");
-            deleteButton.onclick = function() {
-                table.deleteRow(row.rowIndex - 1); // Remove a linha da tabela
-            };
-
-            cellActions.appendChild(deleteButton);
-        }
-
-        // Função para filtrar a tabela com base nos filtros
-        function filterTable() {
-            const searchQuery = document.getElementById('search').value.toLowerCase();
-            const letterFilter = document.getElementById('letterFilter').value;
-            const startLetterFilter = document.getElementById('startLetterFilter').value;
-            const endLetterFilter = document.getElementById('endLetterFilter').value;
-            const table = document.getElementById('userTable');
-            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-            for (let i = 0; i < rows.length; i++) {
-                const nameCell = rows[i].cells[0];
-                const name = nameCell.textContent || nameCell.innerText;
-                const letterCount = name.length;
-
-                const matchesSearch = name.toLowerCase().includes(searchQuery);
-                const matchesLetterFilter = letterFilter ? letterCount ===
+            delete
