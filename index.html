@@ -12,7 +12,6 @@
             box-sizing: border-box;
         }
 
-        /* Estilos Globais */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f0f5f1;
@@ -223,7 +222,6 @@
             { name: "Lucas", email: "lucas@coop.com" },
             { name: "Roberta", email: "roberta@coop.com" },
             { name: "Juliana", email: "juliana@coop.com" },
-            { name: "Ricardo", email: "ricardo@coop.com" },
             { name: "Simone", email: "simone@coop.com" }
         ];
 
@@ -262,4 +260,7 @@
             cellEmail.textContent = email;
 
             const deleteButton = document.createElement("button");
-            delete
+            deleteButton.textContent = "Remover";
+            deleteButton.classList.add("delete");
+            deleteButton.onclick = function() {
+                table.delete
