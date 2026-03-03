@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciamento de Usuários</title>
+    <title>Cadastro de Clientes - Cooperativa Agropecuária</title>
     <style>
         /* Resetando alguns estilos padrão */
         * {
@@ -13,50 +13,63 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             height: 100vh;
             flex-direction: column;
+            padding: 20px;
+            background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
         }
 
         .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 600px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 700px;
             text-align: center;
-            margin-top: 20px;
+            border: 2px solid #4CAF50;
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 28px;
+            color: #4CAF50;
             margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #4CAF50;
+            margin-bottom: 15px;
         }
 
         .form-container {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        input {
-            padding: 10px;
-            margin: 5px;
+        input, select {
+            padding: 12px;
+            margin: 8px 0;
             width: 80%;
-            border-radius: 4px;
+            border-radius: 6px;
             border: 1px solid #ccc;
+            font-size: 16px;
         }
 
         button {
-            padding: 10px 15px;
+            padding: 12px 18px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             width: 80%;
+            font-size: 16px;
+            font-weight: bold;
         }
 
         button:hover {
@@ -67,16 +80,10 @@
             margin-bottom: 20px;
         }
 
-        .filters input {
+        .filters input, .filters select {
             width: 30%;
+            display: inline-block;
             margin-right: 10px;
-        }
-
-        .filters select {
-            padding: 10px;
-            width: 30%;
-            border-radius: 4px;
-            border: 1px solid #ccc;
         }
 
         table {
@@ -86,13 +93,19 @@
         }
 
         th, td {
-            padding: 10px;
+            padding: 12px;
             text-align: left;
             border-bottom: 1px solid #ddd;
+            font-size: 16px;
         }
 
         th {
-            background-color: #f4f4f4;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
         }
 
         button.delete {
@@ -102,18 +115,27 @@
             padding: 5px 10px;
             cursor: pointer;
             border-radius: 4px;
+            font-size: 14px;
         }
 
         button.delete:hover {
             background-color: #e53935;
         }
+
+        footer {
+            margin-top: 30px;
+            color: #4CAF50;
+            font-size: 14px;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Gerenciamento de Usuários</h1>
+        <h1>Cadastro de Clientes - Cooperativa Agropecuária</h1>
+        <h2>Cadastro de novos clientes e filtros de pesquisa</h2>
 
-        <!-- Filtros e barra de pesquisa -->
+        <!-- Filtros de pesquisa -->
         <div class="filters">
             <input type="text" id="search" placeholder="Pesquisar por nome..." onkeyup="filterTable()">
             <select id="letterFilter" onchange="filterTable()">
@@ -122,13 +144,28 @@
                 <option value="6">6 letras</option>
                 <option value="7">7 letras</option>
             </select>
+            <select id="startLetterFilter" onchange="filterTable()">
+                <option value="">Filtrar por letra inicial</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="M">M</option>
+                <option value="R">R</option>
+            </select>
+            <select id="endLetterFilter" onchange="filterTable()">
+                <option value="">Filtrar por letra final</option>
+                <option value="A">A</option>
+                <option value="E">E</option>
+                <option value="O">O</option>
+                <option value="S">S</option>
+            </select>
         </div>
 
         <!-- Formulário para adicionar usuários -->
         <div class="form-container">
-            <input type="text" id="userName" placeholder="Nome do Usuário" />
-            <input type="email" id="userEmail" placeholder="E-mail do Usuário" />
-            <button onclick="addUser()">Adicionar Usuário</button>
+            <input type="text" id="userName" placeholder="Nome do Cliente" />
+            <input type="email" id="userEmail" placeholder="E-mail do Cliente" />
+            <button onclick="addUser()">Adicionar Cliente</button>
         </div>
 
         <!-- Tabela de usuários -->
@@ -144,21 +181,25 @@
                 <!-- Usuários serão listados aqui -->
             </tbody>
         </table>
+
+        <footer>
+            <p>&copy; 2026 Cooperativa Agropecuária - Todos os direitos reservados</p>
+        </footer>
     </div>
 
     <script>
         // Usuários iniciais aleatórios
         const initialUsers = [
-            { name: "Ana", email: "ana@exemplo.com" },
-            { name: "Carlos", email: "carlos@exemplo.com" },
-            { name: "Beatriz", email: "beatriz@exemplo.com" },
-            { name: "Felipe", email: "felipe@exemplo.com" },
-            { name: "Giovana", email: "giovana@exemplo.com" },
-            { name: "Ricardo", email: "ricardo@exemplo.com" },
-            { name: "Mariana", email: "mariana@exemplo.com" },
-            { name: "Julia", email: "julia@exemplo.com" },
-            { name: "Pedro", email: "pedro@exemplo.com" },
-            { name: "Renato", email: "renato@exemplo.com" }
+            { name: "Ana", email: "ana@coop.com" },
+            { name: "Carlos", email: "carlos@coop.com" },
+            { name: "Beatriz", email: "beatriz@coop.com" },
+            { name: "Felipe", email: "felipe@coop.com" },
+            { name: "Giovana", email: "giovana@coop.com" },
+            { name: "Ricardo", email: "ricardo@coop.com" },
+            { name: "Mariana", email: "mariana@coop.com" },
+            { name: "Julia", email: "julia@coop.com" },
+            { name: "Pedro", email: "pedro@coop.com" },
+            { name: "Renato", email: "renato@coop.com" }
         ];
 
         // Carregar os usuários iniciais na tabela
@@ -209,6 +250,8 @@
         function filterTable() {
             const searchQuery = document.getElementById('search').value.toLowerCase();
             const letterFilter = document.getElementById('letterFilter').value;
+            const startLetterFilter = document.getElementById('startLetterFilter').value;
+            const endLetterFilter = document.getElementById('endLetterFilter').value;
             const table = document.getElementById('userTable');
             const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
 
@@ -218,15 +261,4 @@
                 const letterCount = name.length;
 
                 const matchesSearch = name.toLowerCase().includes(searchQuery);
-                const matchesLetterFilter = letterFilter ? letterCount === parseInt(letterFilter) : true;
-
-                if (matchesSearch && matchesLetterFilter) {
-                    rows[i].style.display = '';
-                } else {
-                    rows[i].style.display = 'none';
-                }
-            }
-        }
-    </script>
-</body>
-</html>
+                const matchesLetterFilter = letterFilter ? letterCount ===
